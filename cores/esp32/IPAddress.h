@@ -92,6 +92,6 @@ public:
 };
 
 // changed to extern because const declaration creates copies in BSS of INADDR_NONE for each CPP unit that includes it
-#undef IPADDR_NONE
+#undef INADDR_NONE
 extern IPAddress INADDR_NONE;
 #endif
