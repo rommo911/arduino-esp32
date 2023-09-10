@@ -91,6 +91,7 @@ public:
     friend class DNSClient;
 };
 
-// changed to extern because const declaration creates copies in BSS of _INADDR_NONE for each CPP unit that includes it
-extern IPAddress _INADDR_NONE;
+// changed to extern because const declaration creates copies in BSS of INADDR_NONE for each CPP unit that includes it
+#undef INADDR_NONE
+extern IPAddress INADDR_NONE;
 #endif
