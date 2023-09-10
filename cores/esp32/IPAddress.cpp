@@ -122,4 +122,4 @@ bool IPAddress::fromString(const char *address)
 }
 
 // declared one time - as external in IPAddress.h
-IPAddress INADDR_NONE(0, 0, 0, 0);
+IPAddress _INADDR_NONE(0, 0, 0, 0);
