@@ -135,7 +135,15 @@ set(LIBRARY_SRCS
   libraries/WiFi/src/WiFiUdp.cpp
   libraries/WiFiProv/src/WiFiProv.cpp
   libraries/Wire/src/Wire.cpp
-  )
+  libraries/SHT3x_arduino/src/SHT3x.cpp
+  libraries/Button2/src/Button2.cpp
+  libraries/SparkFun_MPU-9250-DMP/src/SparkFunMPU9250-DMP.cpp
+  libraries/SparkFun_MPU-9250-DMP/src/util/arduino_mpu9250_clk.c
+  libraries/SparkFun_MPU-9250-DMP/src/util/arduino_mpu9250_i2c.cpp
+  libraries/SparkFun_MPU-9250-DMP/src/util/arduino_mpu9250_log.cpp
+  libraries/SparkFun_MPU-9250-DMP/src/util/inv_mpu.c
+  libraries/SparkFun_MPU-9250-DMP/src/util/inv_mpu_dmp_motion_driver.c
+)
 
 set(BLE_SRCS
   libraries/BLE/src/BLE2902.cpp
@@ -167,6 +175,7 @@ set(BLE_SRCS
   libraries/BLE/src/BLEValue.cpp
   libraries/BLE/src/FreeRTOS.cpp
   libraries/BLE/src/GeneralUtils.cpp
+
   )
 
 set(includedirs
@@ -204,14 +213,20 @@ set(includedirs
   libraries/WiFi/src
   libraries/WiFiProv/src
   libraries/Wire/src
-  )
+  libraries/Wire/src
+  libraries/SHT3x_arduino/src/
+  libraries/Button2/src/
+  libraries/SparkFun_MPU-9250-DMP/src
+  libraries/SparkFun_MPU-9250-DMP/src/util
 
+  )
+set (EXTRALIB )
 set(srcs ${CORE_SRCS} ${LIBRARY_SRCS} ${BLE_SRCS})
 set(priv_includes cores/esp32/libb64)
 set(requires spi_flash mbedtls mdns esp_adc_cal wifi_provisioning nghttp wpa_supplicant)
 set(priv_requires fatfs nvs_flash app_update spiffs bootloader_support openssl bt esp_ipc esp_hid)
 
-idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires})
+idf_component_register(INCLUDE_DIRS ${includedirs} PRIV_INCLUDE_DIRS ${priv_includes} SRCS ${srcs} REQUIRES ${requires} PRIV_REQUIRES ${priv_requires} SRC_DIRS ${EXTRALIB} )
 
 if(NOT CONFIG_FREERTOS_HZ EQUAL 1000 AND NOT "$ENV{ARDUINO_SKIP_TICK_CHECK}")
     # See delay() in cores/esp32/esp32-hal-misc.c.
